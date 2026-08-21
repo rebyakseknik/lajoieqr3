@@ -1,0 +1,11 @@
+node_modules/
+server/node_modules/
+web/node_modules/
+dist/
+build/
+.env
+server/.env
+web/.env
+.env.local
+*.log
+.DS_Store

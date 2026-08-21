@@ -1,0 +1,12 @@
+{
+  "name": "lajoie-menu",
+  "version": "1.0.0",
+  "private": true,
+  "description": "La Joie dijital menu - React + Node.js + Supabase",
+  "scripts": {
+    "kur": "cd server && npm install && cd ../web && npm install",
+    "derle": "cd web && npm run build",
+    "baslat": "cd server && npm start",
+    "gelistir": "echo 'Iki terminal acin: (1) cd server && npm run dev  (2) cd web && npm run dev'"
+  }
+}
