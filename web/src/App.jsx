@@ -24,6 +24,7 @@ const Duyurular   = lazy(() => import('./panel/Announcements'));
 const OrderStatus = lazy(() => import('./siparis/OrderStatus'));
 const MyAccount   = lazy(() => import('./hesap/MyAccount'));
 const CampaignLanding = lazy(() => import('./menu/CampaignLanding'));
+const PaymentPage = lazy(() => import('./siparis/PaymentPage'));
 
 function Bekleme() {
   return (
@@ -47,6 +48,7 @@ export default function App() {
         <Route path="/siparis/:kod" element={<S><OrderStatus /></S>} />
         <Route path="/hesabim"      element={<S><MyAccount /></S>} />
         <Route path="/kayit/:slug"  element={<S><CampaignLanding /></S>} />
+        <Route path="/odeme/:kod"   element={<S><PaymentPage /></S>} />
 
         <Route
           path="/panel"

@@ -1467,3 +1467,60 @@ body:has(.sepet-serit.acik) .dip{
   .duyuru-serit{ margin:0; padding:0; }
   .duyuru-kart{ flex:0 0 calc(50% - 6px); }
 }
+
+/* ==========================================================
+   ODEME SAYFASI
+   ========================================================== */
+
+.odeme{
+  max-width:560px; margin:0 auto;
+  padding:24px 18px calc(46px + env(safe-area-inset-bottom));
+}
+
+.odeme-ust{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+  margin-bottom:16px;
+}
+.odeme-baslik{
+  margin:2px 0 0;
+  font-family:var(--baslik);
+  font-variation-settings:"opsz" 90,"SOFT" 40,"WONK" 1;
+  font-weight:600; font-size:38px; line-height:1;
+  color:var(--grove); font-variant-numeric:tabular-nums;
+}
+.odeme-alt{ margin:8px 0 0; font-size:13.5px; color:var(--muted); }
+
+.odeme-sayac{
+  flex:none; text-align:center;
+  padding:10px 16px; border-radius:14px;
+  background:var(--card); border:1.5px solid var(--hat);
+}
+.odeme-sayac b{
+  display:block;
+  font-size:22px; font-weight:600;
+  font-variant-numeric:tabular-nums; color:var(--grove);
+}
+.odeme-sayac small{
+  font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted);
+}
+.odeme-sayac.az{ border-color:#E5C4BC; background:#FBEEEB; }
+.odeme-sayac.az b{ color:var(--kirmizi); }
+
+.odeme-cerceve-kutu{
+  border-radius:18px; overflow:hidden;
+  background:#fff;
+  border:1px solid var(--hat);
+  box-shadow:0 8px 24px rgba(18,37,27,.08);
+}
+#paytr-cerceve{ width:100%; min-height:560px; display:block; }
+
+.odeme-bekle{
+  display:grid; place-items:center;
+  min-height:280px;
+  border:1.5px dashed var(--hat); border-radius:18px;
+  background:var(--card);
+}
+.odeme-bekle p{ color:var(--muted); font-size:14.5px; }
+
+.odeme .dugme-ikincil{ max-width:320px; margin-inline:auto; }

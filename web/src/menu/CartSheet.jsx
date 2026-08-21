@@ -178,7 +178,12 @@ export default function CartSheet({ simge, ayarlar, onKapat, onGirisIste }) {
       });
       sepetiBosalt();
       sonSiparisiKaydet(siparis.code);
-      git(`/siparis/${siparis.code}`, { replace: true });
+      // Online odeme: once kart ekrani; odeme dusunce takip ekranina gecer.
+      if (siparis.status === 'awaiting_payment') {
+        git(`/odeme/${siparis.code}`, { replace: true });
+      } else {
+        git(`/siparis/${siparis.code}`, { replace: true });
+      }
     } catch (e) {
       setHata(hataMetni(e));
       setGonderiliyor(false);

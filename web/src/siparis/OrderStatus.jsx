@@ -199,6 +199,11 @@ export default function OrderStatus() {
       {hata ? <p className="alan-not alan-uyari">{hata}</p> : null}
 
       <div className="takip-dugmeler">
+        {odemeBekliyor ? (
+          <Link className="ana-dugme" to={`/odeme/${siparis.code}`}>
+            Ödemeyi tamamla
+          </Link>
+        ) : null}
         {siparis.status === 'new' || odemeBekliyor ? (
           <button type="button" className="dugme-ikincil" onClick={vazgec} disabled={islem}>
             Siparişten vazgeç
