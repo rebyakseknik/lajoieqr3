@@ -6,6 +6,7 @@ import { fiyatiOku } from '../lib/bicim';
 import { gorselYukle, gorselSil } from '../lib/gorsel';
 import { usePanel, PanelBaslik } from './PanelLayout';
 import ProductForm from './parts/ProductForm';
+import OptionEditor from './parts/OptionEditor';
 import ProductListRow from './parts/ProductListRow';
 
 export default function Products() {
@@ -180,6 +181,14 @@ export default function Products() {
               setDuzenlenen(null);
               setFormAcik(false);
             }}
+          />
+        ) : null}
+
+        {formAcik && duzenlenen ? (
+          <OptionEditor
+            urunId={duzenlenen.id}
+            simge={ayarlar.currency || '₺'}
+            bildir={bildir}
           />
         ) : null}
       </details>

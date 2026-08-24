@@ -102,7 +102,10 @@ export default function MyAccount() {
     istenen.forEach((u) => {
       const p = (urunler || []).find((x) => x.id === u.product_id);
       if (p && p.active && p.orderable !== false && !p.sold_out) {
-        sepeteEkle(p, u.qty);
+        // Seçenekler de birlikte gelsin; fiyat sipariş anında yeniden hesaplanır.
+        const secimler = Array.isArray(u.option_ids) ? u.option_ids : [];
+        const adlar = Array.isArray(u.option_names) ? u.option_names : [];
+        sepeteEkle({ ...p, secimAdlari: adlar }, u.qty, secimler);
         eklenen += 1;
       } else {
         atlanan.push(u.name);
@@ -260,7 +263,10 @@ export default function MyAccount() {
               {siparisler.map((s) => {
                 const d = DURUM[s.status] || DURUM.new;
                 const icerik = (s.items || [])
-                  .map((u) => `${u.qty}× ${u.name}`)
+                  .map((u) => {
+                    const ek = (u.option_names || []).join(', ');
+                    return `${u.qty}× ${u.name}${ek ? ` (${ek})` : ''}`;
+                  })
                   .join(', ');
                 return (
                   <li key={s.code}>

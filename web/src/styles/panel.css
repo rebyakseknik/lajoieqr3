@@ -795,3 +795,94 @@ a{ color:var(--moss); }
   font:500 14px/1.4 var(--govde); text-align:left; cursor:pointer;
   touch-action:manipulation;
 }
+
+/* ---------- Secenek yonetimi ---------- */
+
+.sg-kutu{
+  margin-top:18px; padding:16px;
+  border:1px solid var(--hat); border-radius:14px;
+  background:var(--paper);
+}
+.sg-baslik{
+  margin:0 0 4px;
+  font-family:var(--baslik);
+  font-variation-settings:"opsz" 24,"SOFT" 40,"WONK" 1;
+  font-size:16px; font-weight:600; color:var(--grove);
+}
+
+.sg-grup{
+  margin-top:14px; padding:13px;
+  border:1px solid var(--hat); border-radius:12px;
+  background:var(--card);
+}
+.sg-grup-ust{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+}
+.sg-grup-ust b{ display:block; font-size:14.5px; font-weight:500; }
+.sg-grup-ust small{ font-size:12px; color:var(--muted); }
+
+.sg-kural{
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  margin-top:10px; font-size:13px; color:var(--muted);
+}
+.sg-kural label{ display:inline-flex; align-items:center; gap:6px; }
+.sg-kural input[type="number"]{
+  width:58px; padding:5px 8px;
+  border:1px solid var(--hat); border-radius:8px;
+  background:var(--paper); font:400 13px var(--govde);
+}
+
+.sg-liste{ list-style:none; margin:12px 0 0; padding:0; }
+.sg-liste li{
+  display:flex; align-items:center; gap:9px;
+  padding:8px 0; border-top:1px solid var(--hat);
+  font-size:14px;
+}
+.sg-liste li.sonuk{ opacity:.45; }
+.sg-ad{ flex:1; min-width:0; }
+.sg-fiyat{
+  flex:none; font-weight:500; color:var(--grove);
+  font-variant-numeric:tabular-nums;
+}
+.sg-liste button{
+  flex:none; min-height:32px;
+  border:1px solid var(--hat); border-radius:8px; padding:5px 10px;
+  background:transparent; color:var(--muted);
+  font:400 12px/1.2 var(--govde); cursor:pointer;
+}
+.sg-sil{
+  border:1px solid var(--hat); border-radius:8px; padding:5px 10px;
+  background:transparent; color:var(--muted);
+  font:400 12.5px/1.2 var(--govde); cursor:pointer;
+}
+.sg-sil:hover{ color:var(--kirmizi); border-color:#E5C4BC; }
+
+.sg-yeni, .sg-yeni-secenek{
+  display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;
+}
+.sg-yeni input, .sg-yeni select,
+.sg-yeni-secenek input{
+  flex:1; min-width:120px; min-height:40px;
+  padding:8px 11px;
+  border:1px solid var(--hat); border-radius:9px;
+  background:var(--paper); color:var(--ink);
+  font:400 14px var(--govde);
+}
+.sg-yeni-secenek input:nth-child(2){ flex:0 0 110px; }
+
+/* Mutfak fisinde girintili secimler */
+.s-secimler{
+  list-style:none; margin:2px 0 4px; padding:0 0 0 18px;
+}
+.s-secimler li{
+  position:relative;
+  font-size:12.5px; color:var(--muted); line-height:1.5;
+}
+.s-secimler li::before{
+  content:"+"; position:absolute; left:-12px; color:var(--zest); font-weight:600;
+}
+
+@media (max-width:560px){
+  .sg-yeni input, .sg-yeni select, .sg-yeni-secenek input{ min-width:100%; }
+  .sg-yeni-secenek input:nth-child(2){ flex:1 1 100%; }
+}

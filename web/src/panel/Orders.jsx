@@ -139,7 +139,7 @@ export default function Orders() {
 
     const { data, error } = await supabase
       .from('orders')
-      .select('*, order_items(id, name, qty, unit_price)')
+      .select('*, order_items(id, name, qty, unit_price, order_item_options(id, name, price))')
       .eq('order_day', bugun)
       .order('pickup_at', { ascending: true })
       .order('table_no', { ascending: true });
@@ -363,6 +363,13 @@ export default function Orders() {
                           {(s.order_items || []).map((u) => (
                             <li key={u.id}>
                               <b>{u.qty}×</b> {u.name}
+                              {(u.order_item_options || []).length ? (
+                                <ul className="s-secimler">
+                                  {u.order_item_options.map((x) => (
+                                    <li key={x.id}>{x.name}</li>
+                                  ))}
+                                </ul>
+                              ) : null}
                             </li>
                           ))}
                         </ul>

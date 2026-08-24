@@ -42,7 +42,11 @@ export async function slotlariGetir() {
 
 export async function siparisVer({ satirlar, teslim, mod, ad, telefon, not, kodlar, odeme }) {
   const { data, error } = await supabase.rpc('siparis_olustur', {
-    p_urunler: satirlar.map((s) => ({ id: s.id, qty: s.adet })),
+    p_urunler: satirlar.map((s) => ({
+      id: s.id,
+      qty: s.adet,
+      options: s.secimler || [],
+    })),
     p_teslim: teslim,
     p_mod: mod,
     p_ad: ad || '',

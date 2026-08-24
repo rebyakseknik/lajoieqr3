@@ -52,6 +52,7 @@ export function useAyarlar() {
 export function useMenuVerisi(hepsi = false) {
   const [kategoriler, setKategoriler] = useState([]);
   const [urunler, setUrunler] = useState([]);
+  const [secenekler, setSecenekler] = useState([]);
   const [yukleniyor, setYukleniyor] = useState(true);
   const [hata, setHata] = useState(null);
 
@@ -67,7 +68,11 @@ export function useMenuVerisi(hepsi = false) {
       urnSorgu = urnSorgu.eq('active', true);
     }
 
-    const [kat, urn] = await Promise.all([katSorgu, urnSorgu]);
+    const [kat, urn, sec] = await Promise.all([
+      katSorgu,
+      urnSorgu,
+      supabase.rpc('menu_secenekleri'),
+    ]);
 
     if (kat.error || urn.error) {
       setHata((kat.error || urn.error).message);
@@ -77,6 +82,7 @@ export function useMenuVerisi(hepsi = false) {
 
     setKategoriler(kat.data || []);
     setUrunler(urn.data || []);
+    setSecenekler(sec.data || []);
     setYukleniyor(false);
   }, [hepsi]);
 
@@ -84,7 +90,7 @@ export function useMenuVerisi(hepsi = false) {
     getir();
   }, [getir]);
 
-  return { kategoriler, urunler, yukleniyor, hata, yenile: getir };
+  return { kategoriler, urunler, secenekler, yukleniyor, hata, yenile: getir };
 }
 
 /* ---------- Oturum ---------- */

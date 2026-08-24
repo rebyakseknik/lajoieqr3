@@ -18,7 +18,16 @@ function oku() {
   try {
     const ham = localStorage.getItem(SEPET_ANAHTAR);
     const veri = ham ? JSON.parse(ham) : [];
-    return Array.isArray(veri) ? veri.filter((s) => s && s.id && s.adet > 0) : [];
+    if (!Array.isArray(veri)) return [];
+    // Eski surumden kalan sepetlerde anahtar yok; uretip tamamliyoruz.
+    return veri
+      .filter((s) => s && s.id && s.adet > 0)
+      .map((s) => ({
+        secimler: [],
+        secimAdlari: [],
+        ...s,
+        anahtar: s.anahtar || String(s.id),
+      }));
   } catch {
     return [];
   }
@@ -41,25 +50,58 @@ function abone(f) {
 
 /* ---------- Islemler ---------- */
 
-export function sepeteEkle(urun, adet = 1) {
-  const mevcut = durum.find((s) => s.id === urun.id);
+/**
+ * Satir kimligi: urun + secilen secenekler.
+ * Ayni burgerin "S boy" ve "L boy + cedar" hali AYRI satirlardir;
+ * bu yuzden kimlik yalnizca urun numarasi olamaz.
+ */
+export function satirAnahtari(urunId, secimler = []) {
+  const sirali = [...secimler].map(Number).sort((a, b) => a - b);
+  return sirali.length ? `${urunId}|${sirali.join(',')}` : String(urunId);
+}
+
+export function sepeteEkle(urun, adet = 1, secimler = [], birimFiyat = null) {
+  const anahtar = satirAnahtari(urun.id, secimler);
+  const mevcut = durum.find((s) => s.anahtar === anahtar);
+
   if (mevcut) {
-    yaz(durum.map((s) => (s.id === urun.id ? { ...s, adet: Math.min(s.adet + adet, 20) } : s)));
-  } else {
-    yaz([
-      ...durum,
-      { id: urun.id, ad: urun.name, fiyat: Number(urun.price) || 0, adet: Math.min(adet, 20) },
-    ]);
+    yaz(
+      durum.map((s) =>
+        s.anahtar === anahtar ? { ...s, adet: Math.min(s.adet + adet, 20) } : s
+      )
+    );
+    return;
   }
+
+  yaz([
+    ...durum,
+    {
+      anahtar,
+      id: urun.id,
+      ad: urun.name,
+      // Gosterim icindir; gercek fiyat siparis aninda veritabaninda hesaplanir.
+      fiyat: Number(birimFiyat ?? urun.price) || 0,
+      adet: Math.min(adet, 20),
+      secimler: [...secimler].map(Number),
+      secimAdlari: urun.secimAdlari || [],
+    },
+  ]);
 }
 
-export function adetDegistir(id, adet) {
-  if (adet <= 0) return sepettenCikar(id);
-  return yaz(durum.map((s) => (s.id === id ? { ...s, adet: Math.min(adet, 20) } : s)));
+/** Sepet satirina secenek adlarini yazar (yalnizca gosterim icin). */
+export function secimAdlariniYaz(anahtar, adlar) {
+  yaz(durum.map((s) => (s.anahtar === anahtar ? { ...s, secimAdlari: adlar } : s)));
 }
 
-export function sepettenCikar(id) {
-  yaz(durum.filter((s) => s.id !== id));
+export function adetDegistir(anahtar, adet) {
+  if (adet <= 0) return sepettenCikar(anahtar);
+  return yaz(
+    durum.map((s) => (s.anahtar === anahtar ? { ...s, adet: Math.min(adet, 20) } : s))
+  );
+}
+
+export function sepettenCikar(anahtar) {
+  yaz(durum.filter((s) => s.anahtar !== anahtar));
 }
 
 export function sepetiBosalt() {

@@ -18,7 +18,7 @@ import '../styles/menu.css';
 
 export default function MenuPage() {
   const { ayarlar } = useAyarlar();
-  const { kategoriler, urunler, yukleniyor, hata } = useMenuVerisi(false);
+  const { kategoriler, urunler, secenekler, yukleniyor, hata } = useMenuVerisi(false);
 
   const [etkinId, setEtkinId] = useState(null);
   const [acikUrun, setAcikUrun] = useState(null);
@@ -195,6 +195,7 @@ export default function MenuPage() {
           urun={acikUrun}
           simge={simge}
           siparisAcik={siparisAcik}
+          gruplar={(secenekler || []).filter((g) => g.product_id === acikUrun.id)}
           onKapat={() => setAcikUrun(null)}
         />
       ) : null}

@@ -262,9 +262,12 @@ export default function CartSheet({ simge, ayarlar, onKapat, onGirisIste }) {
               </p>
               <ul className="sepet-liste">
                 {satirlar.map((s) => (
-                  <li key={s.id} className="sepet-satir">
+                  <li key={s.anahtar} className="sepet-satir">
                     <div className="sepet-satir-ad">
                       <span>{s.ad}</span>
+                      {s.secimAdlari?.length ? (
+                        <small className="sepet-secimler">{s.secimAdlari.join(' · ')}</small>
+                      ) : null}
                       <small>{para(s.fiyat, simge)}</small>
                     </div>
 
@@ -272,7 +275,7 @@ export default function CartSheet({ simge, ayarlar, onKapat, onGirisIste }) {
                       <button
                         type="button"
                         aria-label={`${s.ad} adedini azalt`}
-                        onClick={() => adetDegistir(s.id, s.adet - 1)}
+                        onClick={() => adetDegistir(s.anahtar, s.adet - 1)}
                       >
                         −
                       </button>
@@ -280,7 +283,7 @@ export default function CartSheet({ simge, ayarlar, onKapat, onGirisIste }) {
                       <button
                         type="button"
                         aria-label={`${s.ad} adedini artır`}
-                        onClick={() => adetDegistir(s.id, s.adet + 1)}
+                        onClick={() => adetDegistir(s.anahtar, s.adet + 1)}
                       >
                         +
                       </button>
@@ -292,7 +295,7 @@ export default function CartSheet({ simge, ayarlar, onKapat, onGirisIste }) {
                       type="button"
                       className="sepet-sil"
                       aria-label={`${s.ad} ürününü çıkar`}
-                      onClick={() => sepettenCikar(s.id)}
+                      onClick={() => sepettenCikar(s.anahtar)}
                     >
                       &times;
                     </button>

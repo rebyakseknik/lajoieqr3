@@ -153,7 +153,14 @@ export default function OrderStatus() {
           {(siparis.items || []).map((u, i) => (
             <li key={i}>
               <span className="dokum-adet">{u.qty}×</span>
-              <span className="dokum-ad">{u.name}</span>
+              <span className="dokum-ad">
+                {u.name}
+                {(u.options || []).length ? (
+                  <small className="dokum-secim">
+                    {u.options.map((x) => x.name).join(' · ')}
+                  </small>
+                ) : null}
+              </span>
               <span className="cizgi" aria-hidden="true" />
               <span className="dokum-tutar">{para(u.unit_price * u.qty, simge)}</span>
             </li>
