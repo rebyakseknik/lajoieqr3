@@ -101,6 +101,14 @@ export default function Campaigns() {
     getir();
   }
 
+  async function sil(k) {
+    if (!window.confirm(`"${k.name}" kampanyası silinsin mi? Bu geri alınamaz.`)) return;
+    const { error } = await supabase.rpc('kampanya_sil', { p_id: k.id });
+    if (error) return bildir(error.message, 'hata');
+    bildir('Kampanya silindi.');
+    getir();
+  }
+
   async function durdur(k) {
     const { error } = await supabase.rpc('kampanya_durdur', { p_id: k.id, p_aktif: !k.active });
     if (error) return bildir(error.message, 'hata');
@@ -277,6 +285,11 @@ export default function Campaigns() {
                   <button type="button" className="k-durdur" onClick={() => durdur(k)}>
                     {k.active ? 'Durdur' : 'Aç'}
                   </button>
+                  {Number(k.issued) === 0 ? (
+                    <button type="button" className="k-sil" onClick={() => sil(k)}>
+                      Sil
+                    </button>
+                  ) : null}
                 </div>
 
                 <div className="kmp-adres">

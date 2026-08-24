@@ -107,6 +107,22 @@ export default function Coupons() {
     getir();
   }
 
+  async function kuponSil(k) {
+    if (!window.confirm(`"${k.code}" kuponu silinsin mi? Bu geri alınamaz.`)) return;
+    const { error } = await supabase.rpc('kupon_sil', { p_id: k.id });
+    if (error) return bildir(error.message, 'hata');
+    bildir('Kupon silindi.');
+    getir();
+  }
+
+  async function kartSil(h) {
+    if (!window.confirm(`"${h.code}" hediye kartı silinsin mi? Bu geri alınamaz.`)) return;
+    const { error } = await supabase.rpc('hediye_sil', { p_id: h.id });
+    if (error) return bildir(error.message, 'hata');
+    bildir('Kart silindi.');
+    getir();
+  }
+
   async function kuponDurdur(k) {
     const { error } = await supabase.rpc('kupon_durdur', { p_id: k.id, p_aktif: !k.active });
     if (error) return bildir(error.message, 'hata');
@@ -293,6 +309,11 @@ export default function Coupons() {
                 <button type="button" className="k-durdur" onClick={() => kuponDurdur(k)}>
                   {k.active ? 'Durdur' : 'Aç'}
                 </button>
+                {k.used_count === 0 ? (
+                  <button type="button" className="k-sil" onClick={() => kuponSil(k)}>
+                    Sil
+                  </button>
+                ) : null}
               </li>
             ))}
           </ul>
@@ -412,6 +433,11 @@ export default function Coupons() {
                 <button type="button" className="k-durdur" onClick={() => kartDurdur(h)}>
                   {h.active ? 'Durdur' : 'Aç'}
                 </button>
+                {Number(h.balance) === Number(h.initial) ? (
+                  <button type="button" className="k-sil" onClick={() => kartSil(h)}>
+                    Sil
+                  </button>
+                ) : null}
               </li>
             ))}
           </ul>

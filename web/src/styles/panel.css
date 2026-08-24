@@ -886,3 +886,13 @@ a{ color:var(--moss); }
   .sg-yeni input, .sg-yeni select, .sg-yeni-secenek input{ min-width:100%; }
   .sg-yeni-secenek input:nth-child(2){ flex:1 1 100%; }
 }
+
+/* Silme dugmesi: durdurmadan ayrilsin, yanlislikla basilmasin */
+.k-sil{
+  flex:none; min-height:38px;
+  border:1px solid var(--hat); border-radius:9px; padding:8px 13px;
+  background:transparent; color:var(--muted);
+  font:400 13px/1.2 var(--govde); cursor:pointer;
+  touch-action:manipulation;
+}
+.k-sil:hover{ color:var(--kirmizi); border-color:#E5C4BC; background:#FBEEEB; }
