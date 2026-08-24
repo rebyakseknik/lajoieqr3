@@ -212,8 +212,19 @@ export default function Orders() {
       p_sebep: sebep,
     });
 
-    if (error) bildir(error.message, 'hata');
-    else getir();
+    if (error) {
+      bildir(error.message, 'hata');
+      return;
+    }
+
+    // Musteriye bildirim: basarisiz olursa siparis akisini bozmasin.
+    supabase.functions
+      .invoke('bildirim-gonder', {
+        body: { order_id: siparis.id, durum, kod: siparis.code },
+      })
+      .catch(() => {});
+
+    getir();
   }
 
   const bitmisler = siparisler.filter((s) => ['done', 'cancelled'].includes(s.status));

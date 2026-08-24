@@ -1653,3 +1653,20 @@ body:has(.sepet-serit.acik) .dip{
 @media (prefers-reduced-motion: reduce){
   .tepe, .tepe .marka, .tepe-etiket, .tepe-alt{ transition:none; }
 }
+
+/* ---------- Bildirim dugmesi ---------- */
+
+.bildirim-dugme{
+  display:block; width:100%;
+  margin-top:14px; padding:13px 18px;
+  border:1.5px solid var(--zest); border-radius:14px;
+  background:#FEFAF0; color:#7A5605;
+  font:500 14px/1.3 var(--govde); cursor:pointer;
+  touch-action:manipulation;
+  transition:all .16s ease;
+}
+.bildirim-dugme:hover{ background:var(--rind); }
+.bildirim-dugme.acik{
+  border-color:#C9E0D3; background:#E7F0EA; color:#1B5E36;
+}
+.bildirim-dugme:disabled{ opacity:.55; cursor:wait; }

@@ -1,9 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { para } from '../lib/bicim';
 import { useAyarlar } from '../lib/kancalar';
 import { DURUM, saat, siparisGetir, siparistenVazgec } from '../lib/siparis';
 import { sonSiparisiUnut } from '../lib/sepet';
+import {
+  bildirimAc,
+  bildirimKapat,
+  iosVeEklenmemis,
+  mevcutAbonelik,
+  pushDestekli,
+  yerindeUyar,
+} from '../lib/bildirim';
 import '../styles/menu.css';
 
 const ADIMLAR = ['new', 'preparing', 'ready', 'done'];
@@ -25,8 +33,19 @@ export default function OrderStatus() {
   const [hata, setHata] = useState(null);
   const [islem, setIslem] = useState(false);
   const [kopyalandi, setKopyalandi] = useState(false);
+  const [bildirimDurumu, setBildirimDurumu] = useState('kapali'); // kapali|acik|bekliyor|yok
+  const oncekiDurum = useRef(null);
 
   const simge = ayarlar.currency || '₺';
+
+  /* Zaten abone mi? */
+  useEffect(() => {
+    if (!pushDestekli()) {
+      setBildirimDurumu('yok');
+      return;
+    }
+    mevcutAbonelik().then((a) => setBildirimDurumu(a ? 'acik' : 'kapali'));
+  }, []);
 
   const getir = useCallback(async () => {
     try {
@@ -39,6 +58,18 @@ export default function OrderStatus() {
   useEffect(() => {
     getir();
   }, [getir]);
+
+  /* Sayfa aciksa: durum "hazir"a gecince ses ve titresim.
+     Bildirim calismasa bile musteri fark etsin. */
+  useEffect(() => {
+    if (!siparis) return;
+    const onceki = oncekiDurum.current;
+    oncekiDurum.current = siparis.status;
+
+    if (onceki && onceki !== siparis.status && siparis.status === 'ready') {
+      yerindeUyar();
+    }
+  }, [siparis]);
 
   /* Durum degisince ekran kendiliginden guncellensin. */
   useEffect(() => {
@@ -220,6 +251,46 @@ export default function OrderStatus() {
           Menüye dön
         </Link>
       </div>
+
+      {['new', 'preparing', 'awaiting_payment'].includes(siparis.status) ? (
+        bildirimDurumu === 'yok' ? (
+          <p className="alan-not alan-kucuk" style={{ textAlign: 'center' }}>
+            {iosVeEklenmemis()
+              ? 'Bildirim almak için: paylaş → “Ana Ekrana Ekle”. Sonra bu sayfayı oradan açın.'
+              : 'Bu tarayıcı bildirimi desteklemiyor. Sayfa açık kalırsa hazır olunca sesli uyarı verir.'}
+          </p>
+        ) : (
+          <button
+            type="button"
+            className={`bildirim-dugme${bildirimDurumu === 'acik' ? ' acik' : ''}`}
+            disabled={bildirimDurumu === 'bekliyor'}
+            onClick={async () => {
+              if (bildirimDurumu === 'acik') {
+                await bildirimKapat(kod);
+                setBildirimDurumu('kapali');
+                return;
+              }
+              setBildirimDurumu('bekliyor');
+              const sonuc = await bildirimAc(kod);
+              if (sonuc === 'ok') setBildirimDurumu('acik');
+              else {
+                setBildirimDurumu('kapali');
+                setHata(
+                  sonuc === 'reddedildi'
+                    ? 'Bildirim izni verilmedi. Tarayıcı ayarlarından açabilirsiniz.'
+                    : 'Bildirim açılamadı. Sayfa açık kalırsa sesli uyarı yine çalışır.'
+                );
+              }
+            }}
+          >
+            {bildirimDurumu === 'acik'
+              ? '🔔 Hazır olunca haber verilecek · kapat'
+              : bildirimDurumu === 'bekliyor'
+                ? 'Açılıyor…'
+                : '🔔 Hazır olunca haber ver'}
+          </button>
+        )
+      ) : null}
 
       <button type="button" className="baglanti-sakla" onClick={baglantiyiSakla}>
         {kopyalandi ? 'Bağlantı kopyalandı ✓' : 'Bağlantıyı kaydet / paylaş'}
