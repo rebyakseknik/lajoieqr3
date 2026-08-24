@@ -1591,3 +1591,65 @@ body:has(.sepet-serit.acik) .dip{
   color:var(--muted);
 }
 .dokum-ad{ display:flex; flex-direction:column; gap:1px; }
+
+/* ==========================================================
+   ARAYUZ RÖTUŞLARI
+   ========================================================== */
+
+/* ---------- Okunurluk ----------
+   Krem zeminde acik gri, ogle gunesinde disarida zor okunuyordu.
+   Bir tik koyulastirmak kontrasti belirgin artiriyor. */
+.satir-aciklama{ color:#5A6A5F; }
+.sayfa-aciklama{ color:#5A6A5F; }
+
+/* ---------- Urun sayfasi fotografi ----------
+   Sabit 230px yerine orana bagli: kucuk telefonda daha az yer kaplar,
+   buyuk ekranda cirkin gerilmez. Ust sinir, fiyat ve "sepete ekle"
+   dugmesinin ilk ekranda kalmasini garanti eder. */
+.sayfa-foto{
+  height:auto;
+  aspect-ratio:4/3;
+  max-height:38dvh;
+  object-fit:cover;
+}
+@media (min-width:860px){
+  .sayfa-foto{ max-height:280px; }
+}
+
+/* ---------- Kuculen tepe ----------
+   Marka blogu ilk ekranin yarisini yiyordu. Kaydirmaya baslayinca
+   toparlanip urunlere yer aciyor; geri donunce eski haline geliyor. */
+.tepe{
+  transition:padding .32s cubic-bezier(.32,.72,.3,1);
+}
+.tepe .marka,
+.tepe-etiket,
+.tepe-alt{
+  transition:font-size .32s cubic-bezier(.32,.72,.3,1),
+             margin .32s cubic-bezier(.32,.72,.3,1),
+             opacity .24s ease;
+}
+
+.tepe.kucuk{
+  padding-top:calc(18px + env(safe-area-inset-top));
+  padding-bottom:16px;
+}
+.tepe.kucuk .tepe-etiket{
+  margin-bottom:4px;
+  font-size:9px;
+  opacity:.75;
+}
+.tepe.kucuk .marka{
+  font-size:clamp(26px, 7vw, 34px);
+}
+.tepe.kucuk .tepe-alt{
+  margin-top:6px;
+  font-size:10.5px;
+  opacity:.8;
+}
+/* Marka altindaki ince cizgi kuculunce daralsin */
+.tepe.kucuk .marka::after{ width:80px; }
+
+@media (prefers-reduced-motion: reduce){
+  .tepe, .tepe .marka, .tepe-etiket, .tepe-alt{ transition:none; }
+}

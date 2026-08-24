@@ -149,9 +149,9 @@ export default function ProductSheet({ urun, simge, siparisAcik, gruplar = [], o
           &times;
         </button>
 
-        <div className="sayfa-govde" ref={govdeRef}>
-          {gorsel ? <img className="sayfa-gorsel" src={gorsel} alt="" /> : null}
+        {gorsel ? <img className="sayfa-foto" src={gorsel} alt="" /> : null}
 
+        <div className="sayfa-govde" ref={govdeRef}>
           <h3 className="sayfa-ad" id="urun-baslik">
             {urun.name}
           </h3>

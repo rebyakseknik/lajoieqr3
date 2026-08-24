@@ -1,6 +1,6 @@
-export default function MenuHeader({ ad, altBaslik, hesapAlani }) {
+export default function MenuHeader({ ad, altBaslik, hesapAlani, kucuk = false }) {
   return (
-    <header className="tepe">
+    <header className={`tepe${kucuk ? ' kucuk' : ''}`}>
       {hesapAlani ? <div className="tepe-hesap">{hesapAlani}</div> : null}
       <div className="tepe-ic">
         <p className="tepe-etiket">Dijital Menü</p>

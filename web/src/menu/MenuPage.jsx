@@ -24,6 +24,7 @@ export default function MenuPage() {
   const [acikUrun, setAcikUrun] = useState(null);
   const [sepetAcik, setSepetAcik] = useState(false);
   const [girisAcik, setGirisAcik] = useState(false);
+  const [tepeKucuk, setTepeKucuk] = useState(false);
   const [acikSiparis, setAcikSiparis] = useState(null);
   const oranlar = useRef(new Map());
 
@@ -34,6 +35,16 @@ export default function MenuPage() {
   /* Hesap sayfasindaki "tekrarla" buraya sepetiAc isaretiyle gonderir. */
   /* Kampanya bağlantısından gelen, henüz üye olmayan ziyaretçi. */
   const kampanyaVar = Boolean(hatirlananKampanya()) && !girisli && siparisAcik;
+
+  /* Kaydirinca marka blogu kuculsun; urunler yukari gelsin. */
+  useEffect(() => {
+    function bak() {
+      setTepeKucuk(window.scrollY > 90);
+    }
+    bak();
+    window.addEventListener('scroll', bak, { passive: true });
+    return () => window.removeEventListener('scroll', bak);
+  }, []);
 
   useEffect(() => {
     if (konum.state?.sepetiAc) {
@@ -109,6 +120,7 @@ export default function MenuPage() {
       </a>
 
       <MenuHeader
+        kucuk={tepeKucuk}
         ad={ayarlar.restaurant_name}
         altBaslik={ayarlar.tagline}
         hesapAlani={
