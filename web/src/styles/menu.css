@@ -1855,31 +1855,31 @@ body:has(.sepet-serit.acik) .dip{
 
 /* ---------- Bölümler ---------- */
 
-.bolum{
+.as-bolum{
   max-width:900px; margin:0 auto;
   padding:48px 22px;
   text-align:center;
 }
-.bolum-koyu{
+.as-bolum-koyu{
   max-width:none;
   background:var(--hat);
 }
-.bolum-koyu > *{ max-width:900px; margin-inline:auto; }
+.as-bolum-koyu > *{ max-width:900px; margin-inline:auto; }
 
-.bolum-etiket{
+.as-bolum-etiket{
   margin:0 0 8px;
   font-size:10.5px; font-weight:500;
   letter-spacing:.26em; text-transform:uppercase;
   color:var(--zest);
 }
-.bolum-baslik{
+.as-bolum-baslik{
   margin:0 0 10px;
   font-family:var(--baslik);
   font-variation-settings:"opsz" 60,"SOFT" 40,"WONK" 1;
   font-weight:600; font-size:clamp(24px, 6vw, 32px); line-height:1.2;
   color:var(--grove);
 }
-.bolum-metin{
+.as-bolum-metin{
   margin:14px auto 0; max-width:560px;
   font-size:15px; font-weight:300; line-height:1.7; color:#5A6A5F;
 }
@@ -2013,3 +2013,13 @@ body:has(.sepet-serit.acik) .dip{
   color:rgba(247,240,226,.7); font-size:13px; text-decoration:none;
 }
 .as-dip-baglantilar a:hover{ color:var(--zest); }
+
+/* ---------- Masaüstünde menü okunurluğu ----------
+   Ürün açıklamaları geniş ekranda ortalanmamalı; göz sol kenardan
+   okumaya alışkın. Kategori bölümü menünün kendi genişliğinde kalsın. */
+main .bolum{
+  max-width:var(--en);
+  margin-inline:auto;
+  text-align:left;
+}
+main .satir-aciklama{ text-align:left; }

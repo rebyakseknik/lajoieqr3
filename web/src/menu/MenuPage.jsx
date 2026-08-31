@@ -12,7 +12,6 @@ import CartSheet from './CartSheet';
 import MenuHeader from './MenuHeader';
 import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
-import MenuFooter from './MenuFooter';
 import CategoryRail from './CategoryRail';
 import CategorySection from './CategorySection';
 import ProductSheet from './ProductSheet';
@@ -192,8 +191,6 @@ export default function MenuPage() {
           </main>
         </>
       )}
-
-      <MenuFooter ayarlar={ayarlar} />
 
       <SiteFooter />
 

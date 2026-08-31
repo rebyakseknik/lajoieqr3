@@ -127,9 +127,9 @@ export default function HomePage() {
 
       {/* ---------- Nasıl çalışır ---------- */}
       {siparisAcik ? (
-        <section className="bolum" id="nasil">
-          <p className="bolum-etiket">Öğle aranız kısıtlı mı?</p>
-          <h2 className="bolum-baslik">Önden sipariş verin, sıra beklemeyin</h2>
+        <section className="as-bolum" id="nasil">
+          <p className="as-bolum-etiket">Öğle aranız kısıtlı mı?</p>
+          <h2 className="as-bolum-baslik">Önden sipariş verin, sıra beklemeyin</h2>
 
           <ol className="as-adimlar">
             {ADIMLAR.map(({ Ikon, baslik, metin }, i) => (
@@ -148,9 +148,9 @@ export default function HomePage() {
 
       {/* ---------- Öne çıkanlar ---------- */}
       {oneCikan.length ? (
-        <section className="bolum bolum-koyu">
-          <p className="bolum-etiket">Şefin önerisi</p>
-          <h2 className="bolum-baslik">Öne çıkanlar</h2>
+        <section className="as-bolum as-bolum-koyu">
+          <p className="as-bolum-etiket">Şefin önerisi</p>
+          <h2 className="as-bolum-baslik">Öne çıkanlar</h2>
 
           <div className="vitrin">
             {oneCikan.map((u) => {
@@ -176,10 +176,10 @@ export default function HomePage() {
       ) : null}
 
       {/* ---------- Hakkımızda ---------- */}
-      <section className="bolum" id="hakkimizda">
-        <p className="bolum-etiket">Hakkımızda</p>
-        <h2 className="bolum-baslik">{ayarlar.restaurant_name || 'La Joie'}</h2>
-        <p className="bolum-metin">
+      <section className="as-bolum" id="hakkimizda">
+        <p className="as-bolum-etiket">Hakkımızda</p>
+        <h2 className="as-bolum-baslik">{ayarlar.restaurant_name || 'La Joie'}</h2>
+        <p className="as-bolum-metin">
           {ayarlar.about_text ||
             'Mersin’de, günlük hazırlanan malzemelerle çalışan bir mutfak. Öğle arası kısıtlı olanlar için ön sipariş sistemiyle beklemeden yemek.'}
         </p>
