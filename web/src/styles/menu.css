@@ -2023,3 +2023,17 @@ main .bolum{
   text-align:left;
 }
 main .satir-aciklama{ text-align:left; }
+
+
+/* ---------- Menü tepesi ----------
+   Büyük marka bloğu kalktı; header artık menünün tek tepesi.
+   Logoyu biraz büyütüp bandı ferahlatıyoruz ki cılız durmasın. */
+.ust-bant:not(.tam):not(.sade) .ust-ic{ padding:12px 16px; }
+.ust-bant:not(.tam):not(.sade) .ust-logo img{ height:30px; }
+
+/* Menünün ilk bölümü header'a yapışmasın */
+main .bolum:first-child{ padding-top:26px; }
+
+@media (max-width:400px){
+  .ust-bant:not(.tam):not(.sade) .ust-logo img{ height:25px; }
+}
