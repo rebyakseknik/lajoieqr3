@@ -12,6 +12,7 @@ import {
   pushDestekli,
   yerindeUyar,
 } from '../lib/bildirim';
+import SiteHeader from '../menu/SiteHeader';
 import '../styles/menu.css';
 
 const ADIMLAR = ['new', 'preparing', 'ready', 'done'];
@@ -138,7 +139,9 @@ export default function OrderStatus() {
   const durum = DURUM[siparis.status] || DURUM.new;
 
   return (
-    <main className="takip">
+    <>
+      <SiteHeader sade />
+      <main className="takip">
       {/* ---------- Sanal masa numarasi ---------- */}
       <section
         className={`masa-kart${iptal || odemeBekliyor ? ' sonuk' : ''}${
@@ -299,6 +302,7 @@ export default function OrderStatus() {
       <p className="alan-not alan-kucuk" style={{ textAlign: 'center' }}>
         Sekmeyi kapatsanız bile bu bağlantıyla siparişinize geri dönebilirsiniz.
       </p>
-    </main>
+      </main>
+    </>
   );
 }

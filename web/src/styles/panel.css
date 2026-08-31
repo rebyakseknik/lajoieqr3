@@ -1,8 +1,8 @@
 /* La Joie Dijital Menu - yonetim paneli */
 
 :root{
-  --ink:#12251B; --grove:#1C4433; --moss:#2E6B50; --paper:#FCF8ED;
-  --card:#FFFFFF; --zest:#E3A008; --rind:#F0E4C6; --hat:#EDE7D7;
+  --ink:#12251B; --grove:#173F32; --moss:#2E6B50; --paper:#F7F0E2;
+  --card:#FFFFFF; --zest:#C6A15B; --rind:#F0E4C6; --hat:#EDE7D7;
   --muted:#6C7B70; --kirmizi:#A8402F;
   --govde:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
   --baslik:"Fraunces",Georgia,serif;
@@ -66,14 +66,14 @@ a{ color:var(--moss); }
 }
 .p-tepe-sag{ display:flex; align-items:center; gap:8px; }
 .p-dis,.p-cikis{
-  border:1px solid rgba(252,248,237,.28); background:transparent; color:rgba(252,248,237,.9);
+  border:1px solid rgba(247,240,226,.28); background:transparent; color:rgba(247,240,226,.9);
   padding:7px 13px; border-radius:999px; font:400 12.5px/1 var(--govde);
   text-decoration:none; cursor:pointer; white-space:nowrap;
 }
-.p-dis:hover,.p-cikis:hover{ background:rgba(252,248,237,.12); color:var(--paper); }
+.p-dis:hover,.p-cikis:hover{ background:rgba(247,240,226,.12); color:var(--paper); }
 .p-cikis-form{ margin:0; }
 
-.p-menu{ border-top:1px solid rgba(252,248,237,.13); }
+.p-menu{ border-top:1px solid rgba(247,240,226,.13); }
 .p-menu-ic{
   max-width:1060px; margin:0 auto; display:flex; gap:2px;
   padding:0 12px; overflow-x:auto; scrollbar-width:none;
@@ -81,7 +81,7 @@ a{ color:var(--moss); }
 .p-menu-ic::-webkit-scrollbar{ display:none; }
 .p-menu-ic a{
   flex:none; padding:13px 14px; text-decoration:none;
-  color:rgba(252,248,237,.68);
+  color:rgba(247,240,226,.68);
   font-size:13px; letter-spacing:.03em; white-space:nowrap;
   border-bottom:2.5px solid transparent;
 }
@@ -575,7 +575,7 @@ a{ color:var(--moss); }
 .s-new .s-fis{ animation:fis-gel .35s ease both, yeni-dikkat 2.2s ease-in-out .5s infinite; }
 @keyframes yeni-dikkat{
   0%, 100%{ border-left-color:var(--zest); }
-  50%{ border-left-color:#F5C64A; box-shadow:0 0 0 3px rgba(227,160,8,.12); }
+  50%{ border-left-color:#F5C64A; box-shadow:0 0 0 3px rgba(198,161,91,.12); }
 }
 
 /* Dar ekranda sutun basliklari kaydirirken gorunur kalsin */

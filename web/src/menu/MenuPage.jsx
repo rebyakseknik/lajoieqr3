@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAyarlar, useMenuVerisi } from '../lib/kancalar';
 import { olayGonder } from '../lib/takip';
-import { sonSiparis } from '../lib/sepet';
+import { sonSiparis, useSepet } from '../lib/sepet';
 import { hatirlananKampanya, useKullanici } from '../lib/hesap';
 import AuthSheet from './AuthSheet';
 import CartBar from './CartBar';
@@ -10,6 +10,8 @@ import HowItWorks from './HowItWorks';
 import Announcements from './Announcements';
 import CartSheet from './CartSheet';
 import MenuHeader from './MenuHeader';
+import SiteHeader from './SiteHeader';
+import SiteFooter from './SiteFooter';
 import MenuFooter from './MenuFooter';
 import CategoryRail from './CategoryRail';
 import CategorySection from './CategorySection';
@@ -30,6 +32,7 @@ export default function MenuPage() {
 
   const siparisAcik = ayarlar.preorder_enabled === '1';
   const { girisli } = useKullanici();
+  const { adet: sepetAdedi } = useSepet();
   const konum = useLocation();
 
   /* Hesap sayfasindaki "tekrarla" buraya sepetiAc isaretiyle gonderir. */
@@ -119,27 +122,19 @@ export default function MenuPage() {
         Menüye geç
       </a>
 
+      <SiteHeader
+        ayarlar={ayarlar}
+        girisli={girisli}
+        siparisAcik={siparisAcik}
+        sepetAdedi={sepetAdedi}
+        onGiris={() => setGirisAcik(true)}
+        onSepet={() => setSepetAcik(true)}
+      />
+
       <MenuHeader
         kucuk={tepeKucuk}
         ad={ayarlar.restaurant_name}
         altBaslik={ayarlar.tagline}
-        hesapAlani={
-          siparisAcik ? (
-            girisli ? (
-              <Link className="tepe-hesap-dugme" to="/hesabim">
-                Hesabım
-              </Link>
-            ) : (
-              <button
-                type="button"
-                className="tepe-hesap-dugme"
-                onClick={() => setGirisAcik(true)}
-              >
-                Giriş yap
-              </button>
-            )
-          ) : null
-        }
       />
 
       <Announcements />
@@ -199,6 +194,8 @@ export default function MenuPage() {
       )}
 
       <MenuFooter ayarlar={ayarlar} />
+
+      <SiteFooter />
 
       {siparisAcik ? <CartBar simge={simge} onAc={() => setSepetAcik(true)} /> : null}
 

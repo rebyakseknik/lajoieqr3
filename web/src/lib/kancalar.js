@@ -18,6 +18,13 @@ const VARSAYILAN_AYAR = {
   preorder_require_login: '0',
   payment_online_enabled: '0',
   payment_cash_enabled: '1',
+  address: '',
+  hours: '',
+  phone: '',
+  instagram: '',
+  maps_url: '',
+  hero_note: '',
+  about_text: '',
 };
 
 export function useAyarlar() {

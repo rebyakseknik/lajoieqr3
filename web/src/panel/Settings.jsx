@@ -10,6 +10,13 @@ const ALANLAR = [
   { anahtar: 'instagram', etiket: 'Instagram kullanıcı adı', sinir: 60, ipucu: 'lajoiemersin', ikili: true },
   { anahtar: 'address', etiket: 'Adres', sinir: 200, ipucu: 'Dershaneler Sokağı, Mersin' },
   { anahtar: 'currency', etiket: 'Para simgesi', sinir: 5, dar: true },
+  { anahtar: 'address', etiket: 'Adres', sinir: 120 },
+  { anahtar: 'hours', etiket: 'Çalışma saatleri', sinir: 60 },
+  { anahtar: 'phone', etiket: 'Telefon', sinir: 24, dar: true },
+  { anahtar: 'instagram', etiket: 'Instagram kullanıcı adı', sinir: 40, dar: true },
+  { anahtar: 'maps_url', etiket: 'Google Haritalar bağlantısı', sinir: 200 },
+  { anahtar: 'hero_note', etiket: 'Ana sayfa sloganı', sinir: 60 },
+  { anahtar: 'about_text', etiket: 'Ana sayfa tanıtım metni', sinir: 300 },
 ];
 
 /** Ön sipariş ayarları ayrı bir kartta durur; kaydetmesi de ayrıdır. */
