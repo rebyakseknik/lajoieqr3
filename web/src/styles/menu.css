@@ -2037,3 +2037,21 @@ main .bolum:first-child{ padding-top:26px; }
 @media (max-width:400px){
   .ust-bant:not(.tam):not(.sade) .ust-logo img{ height:25px; }
 }
+
+/* ---------- Yatay taşma koruması ----------
+   Tek bir öğe ekrandan birkaç piksel taşınca sayfa sağa kayıyor ve
+   tam genişlikteki bloklar (header, dip) o boşluğu doldurmuyordu.
+
+   "clip" kullanıyoruz, "hidden" değil: hidden bir kaydırma bağlamı
+   yaratır ve position:sticky olan header ile kategori şeridini bozar.
+   clip ise yalnızca taşmayı keser, yapışkanlığa dokunmaz. */
+html{ overflow-x:clip; }
+body{ overflow-x:clip; max-width:100%; }
+
+/* Görsel ve gömülü içerik kabına sığsın */
+img, svg, video, iframe{ max-width:100%; }
+
+/* Tam genişlikteki şeritler, sayfa kayarsa bile kesintisiz görünsün */
+.ust-bant, .ust-serit, .ray, .nasil, .duyurular, .kunye, .as-dip{
+  max-width:100%;
+}
